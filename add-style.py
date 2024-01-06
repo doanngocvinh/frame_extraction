@@ -19,9 +19,9 @@ device_name = ort.get_device()
 if device_name == 'CPU':
     providers = ['CPUExecutionProvider']
 elif device_name == 'GPU':
-    providers = ['CUDAExecutionProvider', 'CPUExecutionProvider']
+    providers = ['CUDAExecutionProvider']
 
-# Load model
+# Load model AnimeGANv3_Hayao_STYLE_36.onnx
 model = 'AnimeGANv3_Hayao_STYLE_36'
 session = ort.InferenceSession(f'{model}.onnx', providers=providers)
 
@@ -72,5 +72,5 @@ def process():
 
 # Main function
 if __name__ == "__main__":
-    # process()
-    print(device_name)
+    process()
+    # print(device_name)
