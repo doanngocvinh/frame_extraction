@@ -5,8 +5,8 @@ from glob import glob
 
 # Parameters
 image_folder = 'output_frames_sub'  # Replace with your image folder path
-video_name = '1-fps.avi'  # Name of the resulting video file
-frame_rate = 1  # Frames per second
+video_name = 'output/3-fps.avi'  # Name of the resulting video file
+frame_rate = 3  # Frames per second
 
 # Custom sort function to extract scene number from filename
 def sort_key_func(file_path):

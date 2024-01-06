@@ -53,6 +53,6 @@ for image_path in image_files:
     pdf.image(image_path, x=(pdf_width - new_width) / 2, y=(pdf_height - new_height) / 2, w=new_width, h=new_height)
 
 # Save the result
-pdf.output("output.pdf")
+pdf.output("output/comic.pdf")
 
 print("PDF created successfully!")
