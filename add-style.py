@@ -14,6 +14,8 @@ import zipfile
 pic_form = ['.jpeg', '.jpg', '.png', '.JPEG', '.JPG', '.PNG']
 device_name = ort.get_device()
 
+
+
 if device_name == 'CPU':
     providers = ['CPUExecutionProvider']
 elif device_name == 'GPU':
@@ -50,46 +52,25 @@ def Convert(img, scale):
     return cv2.cvtColor(output_image, cv2.COLOR_RGB2BGR)
 
 # Setup directories
-in_dir = 'output_frames'
-out_dir = 'output_frames_style'
+in_dir = 'output_frames'  # Change this to your input folder path
+out_dir = 'output_frames_style'  # Change this to your output folder path
 
 # Function to process images
 def process():
-    os.makedirs(in_dir, exist_ok=True)
     os.makedirs(out_dir, exist_ok=True)
-
-    root = tk.Tk()
-    root.withdraw()
-    file_paths = filedialog.askopenfilenames(filetypes=[("Image files", "*.png;*.jpg;*.jpeg")])
-
-    if len(file_paths) == 0:
-        print('\nNo files were selected. Try again..\n')
-        return
-
-    for f in file_paths:
-        shutil.copy(f, in_dir)
-
+    
     in_files = sorted(glob(f'{in_dir}/*'))
     in_files = [x for x in in_files if os.path.splitext(x)[-1].lower() in pic_form]
 
     for ims in tqdm(in_files):
-        out_name = f"{out_dir}/{os.path.basename(ims).split('.')[0]}.jpg"
+        out_name = f"{out_dir}/{os.path.basename(ims).split('.')[0]}_styled.jpg"
         mat, scale = load_test_data(ims)
         res = Convert(mat, scale)
         cv2.imwrite(out_name, res)
-        cv2.imshow('Result Picture', res)
-        cv2.waitKey(0)
-        cv2.destroyAllWindows()
 
-    # Compress the output results into a zip file
-    with zipfile.ZipFile(f"{out_dir}.zip", 'w') as zipf:
-        for root, dirs, files in os.walk(out_dir):
-            for file in files:
-                zipf.write(os.path.join(root, file), os.path.relpath(os.path.join(root, file), os.path.join(out_dir, '..')))
-
-    print(f"\nResults are saved and zipped in {out_dir}.zip\n")
+    print(f"\nConversion completed. Styled images are saved in {out_dir}\n")
 
 # Main function
 if __name__ == "__main__":
-    print('\nSelect some photos to upload\n')
-    process()
+    # process()
+    print(device_name)

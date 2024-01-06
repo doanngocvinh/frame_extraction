@@ -1,6 +1,5 @@
 scenedetect[opencv]
 opencv-python-headless
 onnx
-onnxruntime
-onnxruntime-gpu
+onnxruntime-gpu==1.0
 pillow
