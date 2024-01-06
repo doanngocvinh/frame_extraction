@@ -50,8 +50,8 @@ def Convert(img, scale):
     return cv2.cvtColor(output_image, cv2.COLOR_RGB2BGR)
 
 # Setup directories
-in_dir = 'out_frames'
-out_dir = 'out_frames_style'
+in_dir = 'output_frames'
+out_dir = 'output_frames_style'
 
 # Function to process images
 def process():
