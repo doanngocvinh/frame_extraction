@@ -8,7 +8,7 @@ def find_scenes(video_path, threshold=27.0):
     # Create our video & scene managers, then add the detector.
     video_manager = VideoManager([video_path])
     scene_manager = SceneManager()
-    scene_manager.add_detector(ContentDetector(threshold=threshold))
+    scene_manager.add_detector(ContentDetector(threshold=threshold)) # (delta_hue, delta_sat, delta_lum, delta_edges) = 1.0 0.5 1.0 0.2
 
     # Start our video manager.
     video_manager.start()
