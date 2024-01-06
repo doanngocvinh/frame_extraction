@@ -1,2 +1,5 @@
 scenedetect[opencv]
 opencv-python-headless
+onnx==1.10.1
+onnxruntime==1.10.0
+onnxruntime-gpu==1.1.0
