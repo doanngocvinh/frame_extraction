@@ -1,1 +1,1 @@
-conda: python 3.8,  cudatoolkit-11.5.0, cudnn-8.9.2.26
+conda: python 3.10.12,  cudatoolkit-11.8.0, cudnn-8.9.2.26 
