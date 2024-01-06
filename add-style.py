@@ -14,12 +14,12 @@ import zipfile
 pic_form = ['.jpeg', '.jpg', '.png', '.JPEG', '.JPG', '.PNG']
 device_name = ort.get_device()
 
-
+print(device_name)
 
 if device_name == 'CPU':
     providers = ['CPUExecutionProvider']
 elif device_name == 'GPU':
-    providers = ['CUDAExecutionProvider']
+    providers = ['CUDAExecutionProvider', 'CPUExecutionProvider']
 
 # Load model AnimeGANv3_Hayao_STYLE_36.onnx
 model = 'AnimeGANv3_Hayao_STYLE_36'
