@@ -102,7 +102,7 @@ def get_image_timestamp(image_path):
 if __name__ == "__main__":
     # Paths
     subtitle_file_path = 'data\Episode01.srt'
-    frames_dir = 'output_frames'
+    frames_dir = 'output_frames_style'
     output_frames_sub_dir = 'output_frames_sub'  # Directory for frames with subtitles
 
     # Parse the SRT file
