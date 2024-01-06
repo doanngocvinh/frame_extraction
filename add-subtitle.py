@@ -1,6 +1,7 @@
 import os
 import re
 import cv2
+from PIL import Image, ImageDraw, ImageFont
 
 
 def parse_srt(srt_file_path):
@@ -40,7 +41,7 @@ def add_subtitle_to_image(image_path, subtitles, output_dir):
     for start_time, end_time, text_lines in subtitles:
         if start_time <= image_timestamp <= end_time:
             # Draw the subtitle on the image
-            draw_text(frame, text_lines)
+            draw_text_with_pillow(image_path, text_lines, output_dir)
             subtitle_found = True
             break
     
@@ -48,7 +49,41 @@ def add_subtitle_to_image(image_path, subtitles, output_dir):
         print(f"No subtitle found for image: {image_path}")
 
     # Save the frame with or without subtitle in the output directory
-    save_frame(frame, image_path, output_dir)
+    # save_frame(frame, image_path, output_dir)
+
+def draw_text_with_pillow(image_path, text_lines, output_dir):
+    image = Image.open(image_path)
+    draw = ImageDraw.Draw(image)
+    font_color = (255, 255, 255)
+    
+    # Specify a font file if you have one, or remove the font argument to use the default
+    font_path = "FreeMono.ttf"  # Replace with the path to your font file
+    font_size = 13  # Adjust the font size as needed
+    font = ImageFont.truetype(font_path, font_size) if font_path else ImageFont.load_default()
+    
+    text_y_start = image.size[1]  - 32# Starting Y position from the bottom of the image
+
+    # Assuming textlength exists and returns the width of the rendered text
+    # and we calculate the height manually using the number of text lines
+    line_spacing = 5  # Space between lines
+    text_height_total = (font_size + line_spacing) * len(text_lines) - line_spacing  # Total text block height
+    
+    for i, line in enumerate(reversed(text_lines)):
+        text_width = draw.textlength(line.strip(), font=font)  # Assuming this method exists
+        text_x = (image.size[0] - text_width) / 2
+        text_y = text_y_start - (i * (font_size + line_spacing))
+        draw.text((text_x, text_y), line.strip(), font=font, fill=font_color)
+
+
+    # Create the output directory if it doesn't exist
+    if not os.path.exists(output_dir):
+        os.makedirs(output_dir)
+    
+    # Save the frame with subtitle in the output directory
+    output_image_path = os.path.join(output_dir, os.path.basename(image_path))
+
+    image.save(output_image_path)  # Save the modified image
+
 
 def draw_text(frame, text_lines):
     # Define the text properties
@@ -103,7 +138,7 @@ if __name__ == "__main__":
     # Paths
     subtitle_file_path = 'data\Episode01.srt'
     frames_dir = 'output_frames_style'
-    output_frames_sub_dir = 'output_frames_sub'  # Directory for frames with subtitles
+    output_frames_sub_dir = 'output_frames_sub1'  # Directory for frames with subtitles
 
     # Parse the SRT file
     subtitles = parse_srt(subtitle_file_path)

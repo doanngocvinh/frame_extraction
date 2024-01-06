@@ -3,3 +3,4 @@ opencv-python-headless
 onnx
 onnxruntime-gpu
 pillow
+fpdf
